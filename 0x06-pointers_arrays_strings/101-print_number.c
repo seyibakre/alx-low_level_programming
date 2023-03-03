@@ -1,22 +1,43 @@
 #include "main.h"
+#include <stdio.h>
+
 /**
-* print_number - prints an integer
-*@n:integer to be printed
-*
-*/
-void print_number(int n)
+ * print_buffer - prints a buffer
+ * @b: buffer.
+ * @size: size of buffer.
+ * Return: no return.
+ */
+void print_buffer(char *b, int size)
 {
-	unsigned int num = n;
+	int j, k, l;
 
-	if (n < 0)
+	if (size <= 0)
+		printf("\n");
+	else
 	{
-		_putchar('-');
-		num = -num;
+		for (j = 0; j < size; j += 10)
+		{
+			printf("%.8x:", j);
+			for (k = j; k < j + 10; k++)
+			{
+				if (k % 2 == 0)
+					printf(" ");
+				if (k < size)
+					printf("%.2x", *(b + k));
+				else
+					printf("  ");
+			}
+			printf(" ");
+			for (l = j; l < j + 10; l++)
+			{
+				if (l >= size)
+					break;
+				if (*(b + l) < 32 || *(b + l) > 126)
+					printf("%c", '.');
+				else
+					printf("%c", *(b + l));
+			}
+			printf("\n");
+		}
 	}
-
-	if ((num / 10) > 0)
-		print_number(num / 10);
-
-	_putchar((num % 10) + '0');
 }
-
